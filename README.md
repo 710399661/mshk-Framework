@@ -1,3 +1,2 @@
 # framework
-discuz core
-"# mshk-discuz-Q" 
+mshk core
