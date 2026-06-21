@@ -67,7 +67,7 @@
         "process-timeout": 300,
         "policy": {
             "advisories": {
-                "block": false
+                "ignore-id": ["PKSA-zwc5-qtrz-zm1n"]
             }
         }
     },
