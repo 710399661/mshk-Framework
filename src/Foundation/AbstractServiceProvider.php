@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Foundation;
+namespace Discuz\Foundation;
 
 use Illuminate\Support\ServiceProvider;
 

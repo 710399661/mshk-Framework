@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-namespace mshk\Socialite\Two;
+namespace Discuz\Socialite\Two;
 
-use mshk\Contracts\Socialite\Provider as ProviderInterface;
-use mshk\Socialite\Exception\InvalidStateException;
-use mshk\Socialite\Exception\SocialiteException;
+use Discuz\Contracts\Socialite\Provider as ProviderInterface;
+use Discuz\Socialite\Exception\InvalidStateException;
+use Discuz\Socialite\Exception\SocialiteException;
 use Illuminate\Support\Arr;
 
 class WechatQyProvider extends AbstractProvider implements ProviderInterface

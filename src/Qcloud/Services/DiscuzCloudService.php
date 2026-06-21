@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-namespace mshk\Qcloud\Services;
+namespace Discuz\Qcloud\Services;
 
 use GuzzleHttp\Client;
 
-class mshkCloudService
+class DiscuzCloudService
 {
     protected $config;
 

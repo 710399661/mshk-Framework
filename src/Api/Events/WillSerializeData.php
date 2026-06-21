@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Events;
+namespace Discuz\Api\Events;
 
 use App\Models\User;
-use mshk\Api\Controller\AbstractSerializeController;
+use Discuz\Api\Controller\AbstractSerializeController;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 

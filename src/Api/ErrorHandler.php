@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-namespace mshk\Api;
+namespace Discuz\Api;
 
 use App\Common\ResponseCode;
-use mshk\Base\DzqBase;
-use mshk\Base\DzqLog;
-use mshk\Http\mshkResponseFactory;
+use Discuz\Base\DzqBase;
+use Discuz\Base\DzqLog;
+use Discuz\Http\DiscuzResponseFactory;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -86,6 +86,6 @@ class ErrorHandler extends DzqBase
         }
         $document = new Document;
         $document->setErrors($errors);
-        return mshkResponseFactory::JsonApiResponse($document, $response->getStatus());
+        return DiscuzResponseFactory::JsonApiResponse($document, $response->getStatus());
     }
 }

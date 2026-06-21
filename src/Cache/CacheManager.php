@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Cache;
+namespace Discuz\Cache;
 
 use Illuminate\Cache\FileStore;
 use Illuminate\Cache\RedisStore;

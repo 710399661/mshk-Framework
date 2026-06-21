@@ -1,6 +1,6 @@
 <?php
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 use Illuminate\Support\Collection;
 

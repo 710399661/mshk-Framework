@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 
 use Closure;
-use mshk\Common\Utils;
+use Discuz\Common\Utils;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Lumen\Application;

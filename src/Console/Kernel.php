@@ -16,18 +16,18 @@
  * limitations under the License.
  */
 
-namespace mshk\Console;
+namespace Discuz\Console;
 
 use App\Common\CacheKey;
-use mshk\Base\DzqCache;
-use mshk\Base\DzqKernel;
-use mshk\Common\Utils;
-use mshk\Console\Event\Configuring;
-use mshk\Foundation\SiteApp;
+use Discuz\Base\DzqCache;
+use Discuz\Base\DzqKernel;
+use Discuz\Common\Utils;
+use Discuz\Console\Event\Configuring;
+use Discuz\Foundation\SiteApp;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use mshk\Foundation\Application;
+use Discuz\Foundation\Application;
 use Illuminate\Contracts\Console\Kernel as KernelContract;
 use ReflectionClass;
 use Symfony\Component\Console\Application as ConsoleApplication;
@@ -139,14 +139,14 @@ EOF;
      * @param \Symfony\Component\Console\Output\OutputInterface|null $output
      * @return int
      */
-    public function bootstrap()
-    {
-        $this->siteBoot();
-    }
-
     public function handle($input, $output = null)
     {
         // TODO: Implement handle() method.
+    }
+
+    public function bootstrap()
+    {
+        // TODO: Implement bootstrap() method.
     }
 
     public function call($command, array $parameters = [], $outputBuffer = null)

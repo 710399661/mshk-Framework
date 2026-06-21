@@ -1,5 +1,5 @@
 <?php
-namespace mshk\Foundation;
+namespace Discuz\Foundation;
 use Illuminate\Database\Events\QueryExecuted;
 
 class SqlProfileListener

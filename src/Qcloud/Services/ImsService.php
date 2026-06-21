@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Qcloud\Services;
+namespace Discuz\Qcloud\Services;
 
 use TencentCloud\Ims\V20200713\ImsClient;
 use TencentCloud\Ims\V20200713\Models\ImageModerationRequest;

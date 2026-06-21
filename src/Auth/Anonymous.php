@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Auth;
+namespace Discuz\Auth;
 
 class Anonymous extends Guest
 {

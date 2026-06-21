@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 
-use mshk\Database\Migration;
+use Discuz\Database\Migration;
 
 class DzqPluginMigration extends Migration
 {

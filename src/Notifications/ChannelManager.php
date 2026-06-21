@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Notifications;
+namespace Discuz\Notifications;
 
 use Illuminate\Contracts\Bus\Dispatcher as Bus;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -69,7 +69,7 @@ class ChannelManager extends Manager implements DispatcherContract, FactoryContr
      * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function sendNow($notifiables, $notification, ?array $channels = null)
+    public function sendNow($notifiables, $notification, array $channels = null)
     {
         return (new NotificationSender(
             $this,

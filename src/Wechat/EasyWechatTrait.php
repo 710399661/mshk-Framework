@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Wechat;
+namespace Discuz\Wechat;
 
 use App\Common\CacheKey;
 use App\Models\NotificationTpl;
@@ -25,7 +25,7 @@ use Illuminate\Support\Collection;
 /**
  * Trait EasyWechatTrait
  *
- * @package mshk\Wechat
+ * @package Discuz\Wechat
  * @property EasyWechatManage
  * @method createOffiaccountDriver()
  * @method createMiniProgramDriver()

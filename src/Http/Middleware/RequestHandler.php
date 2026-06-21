@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-namespace mshk\Http\Middleware;
+namespace Discuz\Http\Middleware;
 
-use mshk\Foundation\Application;
-use mshk\Http\mshkResponseFactory;
-use mshk\Http\Exception\NotConfig;
-use mshk\Http\UrlGenerator;
+use Discuz\Foundation\Application;
+use Discuz\Http\DiscuzResponseFactory;
+use Discuz\Http\Exception\NotConfig;
+use Discuz\Http\UrlGenerator;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -71,7 +71,7 @@ class RequestHandler implements MiddlewareInterface
             }
         }
 
-        return mshkResponseFactory::EmptyResponse(500);
+        return DiscuzResponseFactory::EmptyResponse(500);
     }
 
     private function getNormalizedPath(ServerRequestInterface $request): ServerRequestInterface

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Foundation;
+namespace Discuz\Foundation;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\Container as ContainerContract;
@@ -534,7 +534,7 @@ class Application extends Container implements ContainerContract
         foreach ([
                      'app'                  => [self::class, \Illuminate\Contracts\Container\Container::class, \Illuminate\Contracts\Foundation\Application::class, \Psr\Container\ContainerInterface::class],
                      'blade.compiler'       => [\Illuminate\View\Compilers\BladeCompiler::class],
-                     'cache'                => [\mshk\Cache\CacheManager::class, \Illuminate\Contracts\Cache\Factory::class],
+                     'cache'                => [\Discuz\Cache\CacheManager::class, \Illuminate\Contracts\Cache\Factory::class],
                      'cache.store'          => [\Illuminate\Cache\Repository::class, \Illuminate\Contracts\Cache\Repository::class],
                      'config'               => [\Illuminate\Config\Repository::class, \Illuminate\Contracts\Config\Repository::class],
 //                     'cookie'               => [\Illuminate\Cookie\CookieJar::class, \Illuminate\Contracts\Cookie\Factory::class, \Illuminate\Contracts\Cookie\QueueingFactory::class],
@@ -592,7 +592,7 @@ class Application extends Container implements ContainerContract
      */
     public function config($key, $default = null)
     {
-        return Arr::get($this->make('mshk.config'), $key, $default);
+        return Arr::get($this->make('discuz.config'), $key, $default);
     }
 
     /**
@@ -636,11 +636,6 @@ class Application extends Container implements ContainerContract
         return $this->config('locale');
     }
 
-    public function getFallbackLocale()
-    {
-        return $this->config('fallback_locale');
-    }
-
     public function registerConfiguredProviders()
     {
         $providers = $this->config('providers', []);
@@ -657,70 +652,5 @@ class Application extends Container implements ContainerContract
     public function isInstall()
     {
         return file_exists($this->storagePath().'/install.lock');
-    }
-
-    public function bootstrapPath($path = '')
-    {
-        return $this->basePath.DIRECTORY_SEPARATOR.'bootstrap'.($path ? DIRECTORY_SEPARATOR.$path : $path);
-    }
-
-    public function runningInConsole()
-    {
-        return php_sapi_name() === 'cli' || (defined('ARTISAN_BINARY') && PHP_SAPI === 'cli');
-    }
-
-    public function runningUnitTests()
-    {
-        return $this->runningInConsole() && (env('APP_RUNNING_IN_SUBPROCESS') === 'true' || Arr::get($_SERVER, 'argv', []) !== false);
-    }
-
-    public function hasDebugModeEnabled()
-    {
-        return (bool) $this->config('debug', false);
-    }
-
-    public function maintenanceMode()
-    {
-        return false;
-    }
-
-    public function bootstrapWith(array $bootstrappers)
-    {
-        $this->hasBeenBootstrapped = true;
-        foreach ($bootstrappers as $bootstrapper) {
-            $this->make($bootstrapper)->bootstrap($this);
-        }
-    }
-
-    public function hasBeenBootstrapped()
-    {
-        return $this->hasBeenBootstrapped;
-    }
-
-    public function setLocale($locale)
-    {
-        $this->config['locale'] = $locale;
-    }
-
-    public function shouldSkipMiddleware()
-    {
-        return false;
-    }
-
-    public function terminating($callback)
-    {
-        $this->terminatingCallbacks[] = $callback;
-        return $this;
-    }
-
-    public function terminate()
-    {
-        $provider = $this->serviceProviders;
-        foreach ($provider as $p) {
-            if (method_exists($p, 'terminate')) {
-                $p->terminate();
-            }
-        }
-        $this->terminatingCallbacks = [];
     }
 }

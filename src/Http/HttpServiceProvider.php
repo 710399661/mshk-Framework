@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Http;
+namespace Discuz\Http;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContracts;

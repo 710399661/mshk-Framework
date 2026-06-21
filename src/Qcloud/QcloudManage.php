@@ -16,22 +16,21 @@
  * limitations under the License.
  */
 
-namespace mshk\Qcloud;
+namespace Discuz\Qcloud;
 
-use mshk\Contracts\Qcloud\Factory;
-use mshk\Contracts\Setting\SettingsRepository;
-use mshk\Qcloud\Services\BillingService;
-use mshk\Qcloud\Services\CaptchaService;
-use mshk\Qcloud\Services\CmsService;
-use mshk\Qcloud\Services\mshkCloudService;
-use mshk\Qcloud\Services\FaceidService;
-use mshk\Qcloud\Services\ImsService;
-use mshk\Qcloud\Services\SmsService;
-use mshk\Qcloud\Services\TmsService;
-use mshk\Qcloud\Services\VodService;
-use mshk\Qcloud\Services\YunsouService;
-use mshk\Qcloud\Services\MsService;
-use mshk\Qcloud\Services\TtsService;
+use Discuz\Contracts\Qcloud\Factory;
+use Discuz\Contracts\Setting\SettingsRepository;
+use Discuz\Qcloud\Services\BillingService;
+use Discuz\Qcloud\Services\CaptchaService;
+use Discuz\Qcloud\Services\CmsService;
+use Discuz\Qcloud\Services\DiscuzCloudService;
+use Discuz\Qcloud\Services\FaceidService;
+use Discuz\Qcloud\Services\ImsService;
+use Discuz\Qcloud\Services\SmsService;
+use Discuz\Qcloud\Services\TmsService;
+use Discuz\Qcloud\Services\VodService;
+use Discuz\Qcloud\Services\YunsouService;
+use Discuz\Qcloud\Services\MsService;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Manager;
 use InvalidArgumentException;
@@ -85,11 +84,6 @@ class QcloudManage extends Manager implements Factory
         return $this->buildService(ImsService::class, $this->qcloudConfig);
     }
 
-    public function createTtsDriver()
-    {
-        return $this->buildService(TtsService::class, $this->qcloudConfig);
-    }
-
     public function createSmsDriver()
     {
         $config = $this->container->config('sms');
@@ -102,13 +96,13 @@ class QcloudManage extends Manager implements Factory
         return $this->buildService(SmsService::class, $config);
     }
 
-    public function createmshkCloudDriver()
+    public function createDiscuzCloudDriver()
     {
         $config = [
-            'base_uri' => 'https://cloud.mshk.chat/api/',
+            'base_uri' => 'https://cloud.discuz.chat/api/',
             'timeout'  =>  15
         ];
-        return $this->buildService(mshkCloudService::class, $config);
+        return $this->buildService(DiscuzCloudService::class, $config);
     }
 
     public function createYunsouDriver()

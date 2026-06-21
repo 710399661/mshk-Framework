@@ -16,13 +16,13 @@
  * limitations under the License.
  */
 
-namespace mshk\Http\Exception;
+namespace Discuz\Http\Exception;
 
 use Exception;
 
 class RouteNotFoundException extends Exception
 {
-    public function __construct($message = '', $code = 404, ?Exception $previous = null)
+    public function __construct($message = '', $code = 404, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Qcloud\Services;
+namespace Discuz\Qcloud\Services;
 
 use TencentCloud\Billing\V20180709\BillingClient;
 use TencentCloud\Billing\V20180709\Models\DescribeAccountBalanceRequest;

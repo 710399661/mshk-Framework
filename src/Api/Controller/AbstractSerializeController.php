@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Controller;
+namespace Discuz\Api\Controller;
 
 use App\Formatter\BaseFormatter;
-use mshk\Api\Events\WillSerializeData;
-use mshk\Http\mshkResponseFactory;
+use Discuz\Api\Events\WillSerializeData;
+use Discuz\Http\DiscuzResponseFactory;
 use Illuminate\Contracts\Container\Container;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -119,7 +119,7 @@ abstract class AbstractSerializeController implements RequestHandlerInterface
 
         $document->setData($element);
 
-        return mshkResponseFactory::JsonApiResponse($document);
+        return DiscuzResponseFactory::JsonApiResponse($document);
     }
 
     /**

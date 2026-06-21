@@ -1,14 +1,13 @@
 <?php
 
-namespace mshk\Notifications\Messages;
+namespace Discuz\Notifications\Messages;
 
 use App\Models\NotificationTpl;
 use App\Models\Post;
-use mshk\Notifications\Traits\VariableTemplateTrait;
-use mshk\Wechat\EasyWechatTrait;
+use Discuz\Notifications\Traits\VariableTemplateTrait;
+use Discuz\Wechat\EasyWechatTrait;
 use Illuminate\Support\Str;
 
-#[\AllowDynamicProperties]
 abstract class SimpleMessage
 {
     use VariableTemplateTrait;

@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 use App\Common\ResponseCode;
 use App\Repositories\UserRepository;
 use DateTime;
-use mshk\Auth\Exception\PermissionDeniedException;
-use mshk\Common\Utils;
-use mshk\Contracts\Setting\SettingsRepository;
+use Discuz\Auth\Exception\PermissionDeniedException;
+use Discuz\Common\Utils;
+use Discuz\Contracts\Setting\SettingsRepository;
 use Illuminate\Support\Str;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -34,7 +34,6 @@ use Illuminate\Database\ConnectionInterface;
  * @method  prefixClearCache($user) 前置缓存清理
  * @method  suffixClearCache($user) 后置缓存清理
  */
-#[\AllowDynamicProperties]
 abstract class DzqController implements RequestHandlerInterface
 {
     public $request;
@@ -324,7 +323,7 @@ abstract class DzqController implements RequestHandlerInterface
      * @param DateTime|null $date
      * @return string|null
      */
-    protected function formatDate(?DateTime $date = null)
+    protected function formatDate(DateTime $date = null)
     {
         if ($date) {
             return $date->format(DateTime::RFC3339);

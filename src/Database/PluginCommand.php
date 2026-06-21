@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-namespace mshk\Database;
+namespace Discuz\Database;
 
 use App\Common\CacheKey;
-use mshk\Base\DzqCache;
-use mshk\Common\Utils;
+use Discuz\Base\DzqCache;
+use Discuz\Common\Utils;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 

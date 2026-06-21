@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace mshk\Http;
+namespace Discuz\Http;
 
-use mshk\Foundation\Application;
+use Discuz\Foundation\Application;
 use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContracts;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
@@ -134,11 +134,6 @@ class UrlGenerator implements UrlGeneratorContracts
      * @param string $rootNamespace
      * @return \Illuminate\Contracts\Routing\UrlGenerator
      */
-    public function getRootControllerNamespace()
-    {
-        return null;
-    }
-
     public function setRootControllerNamespace($rootNamespace)
     {
         // TODO: Implement setRootControllerNamespace() method.

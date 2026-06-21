@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Validation;
+namespace Discuz\Validation;
 
 use Illuminate\Contracts\Validation\Rule;
 
@@ -27,7 +27,7 @@ use Illuminate\Contracts\Validation\Rule;
  * passes 方法接收属性值和名称，并根据属性值是否符合规则而返回  true 或 false
  * message 方法应返回验证失败时应使用的验证错误消息
  *
- * @package mshk\Validation
+ * @package Discuz\Validation
  */
 abstract class AbstractRule implements Rule
 {

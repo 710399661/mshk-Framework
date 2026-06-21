@@ -16,15 +16,14 @@
  * limitations under the License.
  */
 
-namespace mshk\Foundation;
+namespace Discuz\Foundation;
 
 use App\Common\ResponseCode;
-use mshk\Base\DzqLog;
+use Discuz\Base\DzqLog;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Factory;
 use Illuminate\Validation\ValidationException;
 
-#[\AllowDynamicProperties]
 abstract class AbstractValidator
 {
     protected $validator;
@@ -54,7 +53,7 @@ abstract class AbstractValidator
                 'attributes' => $attributes
             ], $errorMessage);
             if (! empty($errorMessage)) {
-                \mshk\Common\Utils::outPut(ResponseCode::INVALID_PARAMETER, $errorMessage);
+                \Discuz\Common\Utils::outPut(ResponseCode::INVALID_PARAMETER, $errorMessage);
             }
             throw new ValidationException($validator);
         }

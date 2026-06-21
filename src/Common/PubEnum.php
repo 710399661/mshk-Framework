@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Common;
+namespace Discuz\Common;
 
 
 class PubEnum

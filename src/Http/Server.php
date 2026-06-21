@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-namespace mshk\Http;
+namespace Discuz\Http;
 
-use mshk\Common\Utils;
-use mshk\Foundation\Application;
-use mshk\Foundation\SiteApp;
-use mshk\Http\Middleware\RequestHandler;
+use Discuz\Common\Utils;
+use Discuz\Foundation\Application;
+use Discuz\Foundation\SiteApp;
+use Discuz\Http\Middleware\RequestHandler;
 use Illuminate\Database\QueryException;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
@@ -49,9 +49,9 @@ class Server extends SiteApp
         $pipe = new MiddlewarePipe();
 
         $pipe->pipe(new RequestHandler([
-            '/plugin'=>'mshk.api.middleware',
-            '/api' => 'mshk.api.middleware',
-            '/' => 'mshk.web.middleware'
+            '/plugin'=>'discuz.api.middleware',
+            '/api' => 'discuz.api.middleware',
+            '/' => 'discuz.web.middleware'
         ], $this->app));
 
         $request = ServerRequestFactory::fromGlobals();
@@ -106,7 +106,7 @@ class Server extends SiteApp
             error_reporting(E_ALL);
             ini_set('display_errors', 'On');
         } else {//prod
-            error_reporting(E_ALL & ~E_DEPRECATED);
+            error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
             ini_set('display_errors', 'Off');
         }
     }
@@ -125,7 +125,7 @@ class Server extends SiteApp
         $this->app->make('log')->error($error);
         $trace = $error->getTraceAsString();
         return <<<ERROR
-            mshk Q! encountered a boot error ($type)<br />
+            Discuz Q! encountered a boot error ($type)<br />
             thrown in <b>$file</b> on line <b>$line</b><br/>
             <b>$message</b><br/>$trace
 
@@ -137,7 +137,7 @@ ERROR;
         $this->app->make('performancelog')->info(json_encode([
             'app_version' => Application::VERSION,
             'opcache_enable' => function_exists('opcache_get_status') ? opcache_get_status(true) : false,
-            'response_time' => microtime(true) - mshk_START.'s',
+            'response_time' => microtime(true) - DISCUZ_START.'s',
             'include_files' => count(get_included_files()),
             'memory_use' => $this->memory_usage(),
             'api_path' => $this->app->make('request')->getUri()->getPath(),

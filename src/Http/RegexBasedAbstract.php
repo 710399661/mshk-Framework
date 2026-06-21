@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Http;
+namespace Discuz\Http;
 
 
 use FastRoute\Dispatcher;

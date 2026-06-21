@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Notifications\Traits;
+namespace Discuz\Notifications\Traits;
 
 use App\Models\NotificationTiming;
 use App\Models\NotificationTpl;
@@ -25,7 +25,7 @@ use App\Notifications\Messages\Database\PostMessage;
 use App\Notifications\Messages\Database\RegisterMessage;
 use App\Notifications\Messages\Database\StatusMessage;
 use Carbon\Carbon;
-use mshk\Base\DzqLog;
+use Discuz\Base\DzqLog;
 
 trait NotificationTimingTrait
 {

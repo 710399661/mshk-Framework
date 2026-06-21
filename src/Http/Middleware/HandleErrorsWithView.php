@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace mshk\Http\Middleware;
+namespace Discuz\Http\Middleware;
 
-use mshk\Http\mshkResponseFactory;
+use Discuz\Http\DiscuzResponseFactory;
 use Illuminate\View\Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -70,6 +70,6 @@ class HandleErrorsWithView implements MiddlewareInterface
 
         $view = $this->view->make($name);
 
-        return mshkResponseFactory::HtmlResponse($view->render(), $code);
+        return DiscuzResponseFactory::HtmlResponse($view->render(), $code);
     }
 }

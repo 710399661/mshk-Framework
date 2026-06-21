@@ -13,12 +13,12 @@
  * limitations under the License.
  */
 
-namespace mshk\Notifications\Channels;
+namespace Discuz\Notifications\Channels;
 
 use App\Models\NotificationTpl;
-use mshk\Contracts\Setting\SettingsRepository;
-use mshk\Notifications\Traits\NotificationTimingTrait;
-use mshk\Wechat\EasyWechatTrait;
+use Discuz\Contracts\Setting\SettingsRepository;
+use Discuz\Notifications\Traits\NotificationTimingTrait;
+use Discuz\Wechat\EasyWechatTrait;
 use EasyWeChat\Kernel\Exceptions\InvalidArgumentException;
 use EasyWeChat\Kernel\Exceptions\InvalidConfigException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -29,7 +29,7 @@ use Illuminate\Support\Arr;
  * 微信通知 - 频道
  * Class WechatChannel
  *
- * @package mshk\Notifications\Channels
+ * @package Discuz\Notifications\Channels
  */
 class WechatChannel
 {

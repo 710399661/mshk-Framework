@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Wechat;
+namespace Discuz\Wechat;
 
 use Illuminate\Support\ServiceProvider;
 

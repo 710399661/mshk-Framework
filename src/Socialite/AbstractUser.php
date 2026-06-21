@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace mshk\Socialite;
+namespace Discuz\Socialite;
 
-use mshk\Contracts\Socialite\User;
+use Discuz\Contracts\Socialite\User;
 
 use ArrayAccess;
 

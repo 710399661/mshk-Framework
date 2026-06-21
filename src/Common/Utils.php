@@ -1,16 +1,16 @@
 <?php
 
-namespace mshk\Common;
+namespace Discuz\Common;
 
 use App\Common\CacheKey;
 use App\Common\DzqConst;
 use App\Common\ResponseCode;
-use mshk\Base\DzqCache;
-use mshk\Base\DzqLog;
-use mshk\Http\RouteCollection;
+use Discuz\Base\DzqCache;
+use Discuz\Base\DzqLog;
+use Discuz\Http\RouteCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use mshk\Http\mshkResponseFactory;
+use Discuz\Http\DiscuzResponseFactory;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -182,12 +182,12 @@ class Utils
             DzqLog::outPut($ret, DzqLog::LOG_API);
         }
 
-        $crossHeaders = mshkResponseFactory::getCrossHeaders();
+        $crossHeaders = DiscuzResponseFactory::getCrossHeaders();
         foreach ($crossHeaders as $k => $v) {
             header($k . ':' . $v);
         }
         header('Content-Type:application/json; charset=utf-8', true, 200);
-        header('Dzq-CostTime:' . ((microtime(true) - mshk_START) * 1000) . 'ms');
+        header('Dzq-CostTime:' . ((microtime(true) - DISCUZ_START) * 1000) . 'ms');
         !empty(getenv('KUBERNETES_OAC_HOST')) && app('cache')->put(CacheKey::OAC_REQUEST_TIME, time());
         exit(json_encode($ret, 256));
     }
@@ -259,7 +259,7 @@ class Utils
                 return $this->$property;
             }, $object, $object)->__invoke();
         };
-        $console = app()->make(\mshk\Console\Kernel::class);
+        $console = app()->make(\Discuz\Console\Kernel::class);
         $console->call($cmd, $params);
         $lastOutput = $reader($console, 'lastOutput');
         return $lastOutput->fetch();

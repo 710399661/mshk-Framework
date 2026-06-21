@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Database;
+namespace Discuz\Database;
 
 use Illuminate\Database\Migrations\Migration as BaseMigration;
 use Illuminate\Database\Schema\Builder;

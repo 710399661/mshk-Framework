@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Auth;
+namespace Discuz\Auth;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Contracts\Container\Container;
@@ -427,7 +427,7 @@ class Gate implements GateContract
      * @param array|null $abilities
      * @return GateContract
      */
-    public function resource($name, $class, ?array $abilities = null)
+    public function resource($name, $class, array $abilities = null)
     {
         // TODO: Implement resource() method.
     }

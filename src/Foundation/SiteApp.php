@@ -16,24 +16,24 @@
  * limitations under the License.
  */
 
-namespace mshk\Foundation;
+namespace Discuz\Foundation;
 
 use App\Providers\RedPacketServiceProvider;
-use mshk\Api\ApiServiceProvider;
-use mshk\Auth\AuthServiceProvider;
-use mshk\Base\DzqLog;
-use mshk\Cache\CacheServiceProvider;
-use mshk\Database\DatabaseServiceProvider;
-use mshk\Database\MigrationServiceProvider;
-use mshk\Filesystem\FilesystemServiceProvider;
-use mshk\Http\HttpServiceProvider;
-use mshk\Notifications\NotificationServiceProvider;
-use mshk\Qcloud\QcloudServiceProvider;
-use mshk\Queue\QueueServiceProvider;
-use mshk\Search\SearchServiceProvider;
-use mshk\Socialite\SocialiteServiceProvider;
-use mshk\Web\WebServiceProvider;
-use mshk\Wechat\WechatServiceProvider;
+use Discuz\Api\ApiServiceProvider;
+use Discuz\Auth\AuthServiceProvider;
+use Discuz\Base\DzqLog;
+use Discuz\Cache\CacheServiceProvider;
+use Discuz\Database\DatabaseServiceProvider;
+use Discuz\Database\MigrationServiceProvider;
+use Discuz\Filesystem\FilesystemServiceProvider;
+use Discuz\Http\HttpServiceProvider;
+use Discuz\Notifications\NotificationServiceProvider;
+use Discuz\Qcloud\QcloudServiceProvider;
+use Discuz\Queue\QueueServiceProvider;
+use Discuz\Search\SearchServiceProvider;
+use Discuz\Socialite\SocialiteServiceProvider;
+use Discuz\Web\WebServiceProvider;
+use Discuz\Wechat\WechatServiceProvider;
 use Illuminate\Bus\BusServiceProvider;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Encryption\EncryptionServiceProvider;
@@ -59,7 +59,7 @@ class SiteApp
     public function siteBoot($isHttp = false)
     {
         $this->app->instance('env', 'production');
-        $this->app->instance('mshk.config', $this->loadConfig());
+        $this->app->instance('discuz.config', $this->loadConfig());
         $this->app->instance('config', $this->getIlluminateConfig());
 
         $this->registerBaseEnv();
@@ -112,7 +112,7 @@ class SiteApp
 
     private function getIlluminateConfig()
     {
-        $mshkConfig = [
+        $discuzConfig = [
             'queue' => $this->app->config('queue'),
             'filesystems' => $this->app->config('filesystems'),
             'app' => [
@@ -124,7 +124,7 @@ class SiteApp
         ];
 
         if ($this->app->config('cache')) {
-            $mshkConfig['cache'] = $this->app->config('cache');
+            $discuzConfig['cache'] = $this->app->config('cache');
         }
 
         $config = new ConfigRepository(
@@ -152,7 +152,7 @@ class SiteApp
                             ],
                         ],
 
-                        'prefix' => 'mshk_cache',
+                        'prefix' => 'discuz_cache',
 
                     ],
                     'view' => [
@@ -162,7 +162,7 @@ class SiteApp
                         'compiled' => realpath(storage_path('views')),
                     ]
                 ],
-                $mshkConfig
+                $discuzConfig
             )
         );
 

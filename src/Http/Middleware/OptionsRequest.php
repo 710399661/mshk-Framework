@@ -16,14 +16,14 @@
  * limitations under the License.
  */
 
-namespace mshk\Http\Middleware;
+namespace Discuz\Http\Middleware;
 
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use mshk\Http\mshkResponseFactory;
+use Discuz\Http\DiscuzResponseFactory;
 
 class OptionsRequest implements MiddlewareInterface
 {
@@ -33,7 +33,7 @@ class OptionsRequest implements MiddlewareInterface
 
         $method = Arr::get($request->getServerParams(), 'REQUEST_METHOD', '');
         if ($method == 'OPTIONS') {
-            return mshkResponseFactory::EmptyResponse(200);
+            return DiscuzResponseFactory::EmptyResponse(200);
         } else {
             return $handler->handle($request);
         }

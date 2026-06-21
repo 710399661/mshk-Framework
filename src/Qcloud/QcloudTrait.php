@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Qcloud;
+namespace Discuz\Qcloud;
 
 trait QcloudTrait
 {
@@ -49,22 +49,22 @@ trait QcloudTrait
 
     public function checkVersion($params = [])
     {
-        return $this->getQcloud()->service('mshkcloud')->checkVersion($params);
+        return $this->getQcloud()->service('discuzcloud')->checkVersion($params);
     }
 
     public function qcloudReport($params = [])
     {
-        return $this->getQcloud()->service('mshkcloud')->qcloudReport($params);
+        return $this->getQcloud()->service('discuzcloud')->qcloudReport($params);
     }
 
     public function report($params = [])
     {
-        return $this->getQcloud()->service('mshkcloud')->report($params);
+        return $this->getQcloud()->service('discuzcloud')->report($params);
     }
 
     public function statistics($params = [])
     {
-        return $this->getQcloud()->service('mshkcloud')->statistics($params);
+        return $this->getQcloud()->service('discuzcloud')->statistics($params);
     }
 
     public function MsUserInfo()
@@ -79,22 +79,17 @@ trait QcloudTrait
 
     public function uinStatistics($params = [])
     {
-        return $this->getQcloud()->service('mshkcloud')->uinStatistics($params);
+        return $this->getQcloud()->service('discuzcloud')->uinStatistics($params);
     }
 
     public function qcloudDaily($params = [])
     {
-        return $this->getQcloud()->service('mshkcloud')->qcloudDaily($params);
+        return $this->getQcloud()->service('discuzcloud')->qcloudDaily($params);
     }
 
     public function siteInfoDaily($params = [])
     {
-        return $this->getQcloud()->service('mshkcloud')->siteInfoDaily($params);
-    }
-
-    public function TextToVoice($params = [])
-    {
-        return $this->getQcloud()->service('tts')->TextToVoice($params);
+        return $this->getQcloud()->service('discuzcloud')->siteInfoDaily($params);
     }
 
     /*

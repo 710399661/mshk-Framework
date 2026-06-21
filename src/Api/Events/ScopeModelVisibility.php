@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Events;
+namespace Discuz\Api\Events;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;

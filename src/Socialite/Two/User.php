@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace mshk\Socialite\Two;
+namespace Discuz\Socialite\Two;
 
-use mshk\Socialite\AbstractUser;
+use Discuz\Socialite\AbstractUser;
 
 class User extends AbstractUser
 {

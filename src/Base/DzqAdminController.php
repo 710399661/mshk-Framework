@@ -1,6 +1,6 @@
 <?php
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 
 use App\Repositories\UserRepository;

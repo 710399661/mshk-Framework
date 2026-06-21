@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Http\Middleware;
+namespace Discuz\Http\Middleware;
 
 use App\Common\ResponseCode;
 use App\Models\Group;
@@ -26,17 +26,17 @@ use App\Models\GroupUserMq;
 use App\Models\Invite;
 use App\Models\Order;
 use App\Repositories\UserRepository;
-use mshk\Auth\AssertPermissionTrait;
-use mshk\Auth\Exception\PermissionDeniedException;
-use mshk\Contracts\Setting\SettingsRepository;
-use mshk\Foundation\Application;
+use Discuz\Auth\AssertPermissionTrait;
+use Discuz\Auth\Exception\PermissionDeniedException;
+use Discuz\Contracts\Setting\SettingsRepository;
+use Discuz\Foundation\Application;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use mshk\Common\Utils;
+use Discuz\Common\Utils;
 
 class CheckoutSite implements MiddlewareInterface
 {

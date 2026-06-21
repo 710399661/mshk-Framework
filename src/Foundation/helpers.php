@@ -102,20 +102,6 @@ if (! function_exists('public_path')) {
     }
 }
 
-if (! function_exists('database_path')) {
-    function database_path($path = '')
-    {
-        return app()->databasePath($path);
-    }
-}
-
-if (! function_exists('lang_path')) {
-    function lang_path($path = '')
-    {
-        return app()->langPath($path);
-    }
-}
-
 if (! function_exists('config')) {
     /**
      * Get / set the specified configuration value.

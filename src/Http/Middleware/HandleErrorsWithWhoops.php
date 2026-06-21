@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Http\Middleware;
+namespace Discuz\Http\Middleware;
 
 use Franzl\Middleware\Whoops\WhoopsRunner;
 use Psr\Http\Message\ResponseInterface;

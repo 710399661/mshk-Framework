@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace mshk\Queue;
+namespace Discuz\Queue;
 
-use mshk\Console\Event\Configuring;
+use Discuz\Console\Event\Configuring;
 use Illuminate\Contracts\Debug\ExceptionHandler as ContractsExceptionHandler;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Queue\Connectors\RedisConnector;
@@ -27,10 +27,10 @@ use Illuminate\Queue\QueueManager;
 use Illuminate\Queue\Worker;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Opis\Closure\Serializer;
+use Opis\Closure\SerializableClosure;
 use Illuminate\Queue\Console;
 use Illuminate\Queue\Listener as QueueListener;
-use mshk\Foundation\ExceptionHandler;
+use Discuz\Foundation\ExceptionHandler;
 
 class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -176,7 +176,7 @@ class QueueServiceProvider extends ServiceProvider implements DeferrableProvider
         if (Str::startsWith($key = $this->app->config('key'), 'base64:')) {
             $key = base64_decode(substr($key, 7));
         }
-        Serializer::setSecurityProvider($key);
+        SerializableClosure::setSecretKey($key);
     }
 
     protected function registerCommands()

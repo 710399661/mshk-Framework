@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Controller;
+namespace Discuz\Api\Controller;
 
 use Tobscure\JsonApi\Resource;
 use Tobscure\JsonApi\SerializerInterface;

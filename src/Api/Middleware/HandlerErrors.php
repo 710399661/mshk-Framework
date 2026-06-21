@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Middleware;
+namespace Discuz\Api\Middleware;
 
 use App\Common\ResponseCode;
-use mshk\Api\ErrorHandler;
-use mshk\Common\Utils;
+use Discuz\Api\ErrorHandler;
+use Discuz\Common\Utils;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;

@@ -15,13 +15,12 @@
  * limitations under the License.
  */
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\URL;
 
-#[\AllowDynamicProperties]
 abstract class DzqModel extends Model
 {
     public function __construct(array $attributes = [])

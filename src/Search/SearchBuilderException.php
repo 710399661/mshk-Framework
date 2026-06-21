@@ -16,13 +16,13 @@
  * limitations under the License.
  */
 
-namespace mshk\Search;
+namespace Discuz\Search;
 
 use Exception;
 
 class SearchBuilderException extends Exception
 {
-    public function __construct($message = '', $code = 0, ?Exception $previous = null)
+    public function __construct($message = '', $code = 0, Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

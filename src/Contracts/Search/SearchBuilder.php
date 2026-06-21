@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Contracts\Search;
+namespace Discuz\Contracts\Search;
 
 interface SearchBuilder
 {

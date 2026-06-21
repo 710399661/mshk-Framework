@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 use Laravel\Lumen\Routing\Router;
 

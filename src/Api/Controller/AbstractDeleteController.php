@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Controller;
+namespace Discuz\Api\Controller;
 
-use mshk\Http\mshkResponseFactory;
+use Discuz\Http\DiscuzResponseFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -32,7 +32,7 @@ abstract class AbstractDeleteController implements RequestHandlerInterface
     {
         $this->delete($request);
 
-        return mshkResponseFactory::EmptyResponse(204);
+        return DiscuzResponseFactory::EmptyResponse(204);
     }
 
     /**

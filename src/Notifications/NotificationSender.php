@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Notifications;
+namespace Discuz\Notifications;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -102,7 +102,7 @@ class NotificationSender
      * @param  array|null  $channels
      * @return void
      */
-    public function sendNow($notifiables, $notification, ?array $channels = null)
+    public function sendNow($notifiables, $notification, array $channels = null)
     {
         $notifiables = $this->formatNotifiables($notifiables);
 

@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Listeners;
+namespace Discuz\Api\Listeners;
 
-use mshk\Api\Events\ApiExceptionRegisterHandler;
-use mshk\Foundation\Application;
+use Discuz\Api\Events\ApiExceptionRegisterHandler;
+use Discuz\Foundation\Application;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use SplFileInfo;

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Http;
+namespace Discuz\Http;
 
 use Closure;
 use Illuminate\Contracts\Container\Container;

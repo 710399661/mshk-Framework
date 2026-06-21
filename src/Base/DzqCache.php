@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 
 use App\Common\CacheKey;
@@ -72,7 +72,7 @@ class DzqCache
      * @param bool $autoCache
      * @return bool|mixed
      */
-    public static function hGet($key, $hashKey, ?callable $callBack = null, $autoCache = true)
+    public static function hGet($key, $hashKey, callable $callBack = null, $autoCache = true)
     {
         $data = self::getAppCache($key, $hasCache, $cacheData);
         $ret = false;
@@ -100,7 +100,7 @@ class DzqCache
      * @param bool $autoCache
      * @return bool
      */
-    public static function exists($key, $hashKey, ?callable $callBack = null, $autoCache = true)
+    public static function exists($key, $hashKey, callable $callBack = null, $autoCache = true)
     {
         $data = self::getAppCache($key, $hasCache, $cacheData);
         if ($data && self::CACHE_SWICH) {
@@ -134,7 +134,7 @@ class DzqCache
      * @param bool $autoCache
      * @return bool|array
      */
-    public static function hMGet($key, $hashKeys, ?callable $callBack = null, $index = null, $mutiColumn = false, $autoCache = true)
+    public static function hMGet($key, $hashKeys, callable $callBack = null, $index = null, $mutiColumn = false, $autoCache = true)
     {
         if (isset(CacheKey::$fileStore[$key])) {
             $ret = self::getFragmentFileStore($key, $hashKeys);
@@ -186,7 +186,7 @@ class DzqCache
      * @param bool $preload
      * @return bool|mixed
      */
-    public static function hM2Get($key, $hashKey1, $hashKey2, ?callable $callBack = null, $preload = false)
+    public static function hM2Get($key, $hashKey1, $hashKey2, callable $callBack = null, $preload = false)
     {
         $data = self::get($key);
         $ret = false;

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 
 abstract class DzqListener

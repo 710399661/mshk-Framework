@@ -1,100 +1,49 @@
 <?php
 
-/**
- * Copyright (C) 2020 Tencent Cloud.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-namespace mshk\Filesystem;
+namespace Discuz\Filesystem;
 
 use Exception;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Support\Arr;
-use League\Flysystem\Adapter\AbstractAdapter;
-use League\Flysystem\Adapter\CanOverwriteFiles;
-use League\Flysystem\AdapterInterface;
+use League\Flysystem\FileAttributes;
+use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\Config;
+use League\Flysystem\PathPrefixer;
 use Qcloud\Cos\Client;
 use Throwable;
 
-/**
- * Class CosAdapter.
- */
-class CosAdapter extends AbstractAdapter implements CanOverwriteFiles
+class CosAdapter implements FilesystemAdapter
 {
-    /**
-     * @var Client
-     */
     protected $client;
-
-    /**
-     * @var \GuzzleHttp\Client
-     */
     protected $httpClient;
-
-    /**
-     * @var array
-     */
     protected $config;
+    protected $prefixer;
 
-    /**
-     * CosAdapter constructor.
-     *
-     * @param array $config
-     */
     public function __construct(array $config = [])
     {
         $this->config = $config;
-
-        if (!empty($this->config['cdn'])) {
-            $this->setPathPrefix($this->config['cdn']);
-        }
+        $this->prefixer = new PathPrefixer($config['root'] ?? '');
     }
 
-    /**
-     * @return string
-     */
     public function getBucket()
     {
         return $this->config['bucket'];
     }
 
-    /**
-     * @return string
-     */
     public function getAppId()
     {
         return $this->config['credentials']['appId'] ?? null;
     }
 
-    /**
-     * @return string
-     */
     public function getRegion()
     {
         return $this->config['region'] ?? '';
     }
 
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
     public function getSourcePath($path)
     {
-        $schema = $this->config['schema'] ?  $this->config['schema'] . '://' : 'https://';
-        return  sprintf(
+        $schema = $this->config['schema'] ? $this->config['schema'] . '://' : 'https://';
+        return sprintf(
             $schema . '%s.cos.%s.myqcloud.com/%s',
             $this->getBucket(),
             $this->getRegion(),
@@ -102,15 +51,10 @@ class CosAdapter extends AbstractAdapter implements CanOverwriteFiles
         );
     }
 
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
     public function getUrl($path)
     {
         if (!empty($this->config['cdn'])) {
-            return $this->applyPathPrefix($path);
+            return rtrim($this->config['cdn'], '/') . '/' . ltrim($path, '/');
         }
 
         $options = [
@@ -125,18 +69,10 @@ class CosAdapter extends AbstractAdapter implements CanOverwriteFiles
         );
     }
 
-    /**
-     * @param string     $path
-     * @param string|int $expiration
-     * @param array      $options
-     *
-     * @return string
-     */
     public function getTemporaryUrl($path, $expiration, array $options = [])
     {
         $options = array_merge($options, ['Schema' => $this->config['schema'] ?? 'https']);
-
-        $expiration = date('c', !\is_numeric($expiration) ? \strtotime($expiration) : \intval($expiration));
+        $expiration = date('c', !is_numeric($expiration) ? strtotime($expiration) : intval($expiration));
 
         $objectUrl = $this->getClient()->getObjectUrl(
             $this->getBucket(),
@@ -148,10 +84,10 @@ class CosAdapter extends AbstractAdapter implements CanOverwriteFiles
         $url = parse_url($objectUrl);
 
         if (!empty($this->config['cdn'])) {
-            return \sprintf(
+            return sprintf(
                 '%s/%s?%s',
-                \rtrim($this->config['cdn'], '/'),
-                \ltrim(urldecode($url['path']), '/'),
+                rtrim($this->config['cdn'], '/'),
+                ltrim(urldecode($url['path']), '/'),
                 $url['query']
             );
         }
@@ -159,205 +95,238 @@ class CosAdapter extends AbstractAdapter implements CanOverwriteFiles
         return $objectUrl;
     }
 
-    /**
-     * @param string $path
-     * @param string $contents
-     * @param Config $config
-     *
-     * @return array|false
-     */
-    public function write($path, $contents, Config $config)
+    public function write(string $path, string $contents, Config $config): void
     {
         $options = $this->getUploadOptions($config);
-
-        return $this->getClient()->upload($this->getBucket(), $path, $contents, $options);
+        $this->getClient()->upload($this->getBucket(), $path, $contents, $options);
     }
 
-    /**
-     * @param string   $path
-     * @param resource $resource
-     * @param Config   $config
-     *
-     * @return array|false
-     */
-    public function writeStream($path, $resource, Config $config)
+    public function writeStream(string $path, $contents, Config $config): void
     {
         $options = $this->getUploadOptions($config);
-
-        return $this->getClient()->upload(
+        $this->getClient()->upload(
             $this->getBucket(),
             $path,
-            stream_get_contents($resource, -1, 0),
+            stream_get_contents($contents, -1, 0),
             $options
         );
     }
 
-    /**
-     * @param string $path
-     * @param string $contents
-     * @param Config $config
-     *
-     * @return array|bool
-     */
-    public function update($path, $contents, Config $config)
+    public function update(string $path, string $contents, Config $config): void
     {
-        return $this->write($path, $contents, $config);
+        $this->write($path, $contents, $config);
     }
 
-    /**
-     * @param string   $path
-     * @param resource $resource
-     * @param Config   $config
-     *
-     * @return array|bool
-     */
-    public function updateStream($path, $resource, Config $config)
+    public function updateStream(string $path, $contents, Config $config): void
     {
-        return $this->writeStream($path, $resource, $config);
+        $this->writeStream($path, $contents, $config);
     }
 
-    /**
-     * @param string $path
-     * @param string $to
-     *
-     * @return bool
-     * @throws Exception
-     */
-    public function rename($path, $to)
+    public function rename(string $path, string $newPath): void
     {
-        $result = $this->copy($path, $to);
-
+        $this->copy($path, $newPath, new Config());
         $this->delete($path);
-
-        return $result;
     }
 
-    /**
-     * @param string $path
-     * @param string $to
-     *
-     * @return bool
-     * @throws Exception
-     */
-    public function copy($path, $to)
+    public function copy(string $source, string $destination, Config $config): void
     {
-        $source = [
+        $sourceConfig = [
             'Region' => $this->getRegion(),
             'Bucket' => $this->getBucket(),
-            'Key' => $path,
+            'Key' => $source,
         ];
-
-        return (bool) $this->getClient()->copy($this->getBucket(), $to, $source);
+        $this->getClient()->copy($this->getBucket(), $destination, $sourceConfig);
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
-    public function delete($path)
+    public function delete(string $path): void
     {
-        return (bool) $this->getClient()->deleteObject([
+        $this->getClient()->deleteObject([
             'Bucket' => $this->getBucket(),
             'Key' => $path,
         ]);
     }
 
-    /**
-     * @param string $dirname
-     *
-     * @return bool
-     */
-    public function deleteDir($dirname)
+    public function deleteDirectory(string $path): void
     {
-        $response = $this->listObjects($dirname);
-
+        $response = $this->listObjects($path);
         if (empty($response['Contents'])) {
-            return true;
+            return;
         }
-
         $keys = array_map(function ($item) {
             return ['Key' => $item['Key']];
         }, (array) $response['Contents']);
-
-        return (bool) $this->getClient()->deleteObjects([
+        $this->getClient()->deleteObjects([
             'Bucket' => $this->getBucket(),
             'Objects' => $keys,
         ]);
     }
 
-    /**
-     * @param string $dirname
-     * @param Config $config
-     *
-     * @return array|bool
-     */
-    public function createDir($dirname, Config $config)
+    public function createDirectory(string $path, Config $config): void
     {
-        return $this->getClient()->putObject([
+        $this->getClient()->putObject([
             'Bucket' => $this->getBucket(),
-            'Key' => $dirname.'/',
+            'Key' => $path . '/',
             'Body' => '',
         ]);
     }
 
-    /**
-     * @param string $path
-     * @param string $visibility
-     *
-     * @return array|false
-     */
-    public function setVisibility($path, $visibility)
+    public function setVisibility(string $path, string $visibility): void
     {
-        return (bool) $this->getClient()->PutObjectAcl([
+        $this->getClient()->PutObjectAcl([
             'Bucket' => $this->getBucket(),
             'Key' => $path,
             'ACL' => $this->normalizeVisibility($visibility),
         ]);
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
-    public function has($path)
+    public function visibility(string $path): FileAttributes
     {
-        try {
-            return (bool) $this->getMetadata($path);
-        } catch (\Throwable $e) {
-            return false;
-        } catch (\Exception $e) {
-            return false;
+        $meta = $this->getClient()->getObjectAcl([
+            'Bucket' => $this->getBucket(),
+            'Key' => $path,
+        ]);
+
+        $visibility = 'private';
+        foreach ($meta['Grants'] as $grant) {
+            if ('READ' === $grant['Grant']['Permission'] && false !== strpos($grant['Grantee']['URI'] ?? '', 'global/AllUsers')) {
+                $visibility = 'public';
+                break;
+            }
         }
+
+        return new FileAttributes(
+            $path,
+            $visibility,
+            0,
+            null,
+            null,
+            ['type' => 'file']
+        );
     }
 
-    /**
-     * @param string $path
-     *
-     * @return array|bool
-     */
-    public function read($path)
+    public function mimeType(string $path): FileAttributes
+    {
+        $meta = $this->getClient()->headObject([
+            'Bucket' => $this->getBucket(),
+            'Key' => $path,
+        ]);
+
+        return new FileAttributes(
+            $path,
+            null,
+            0,
+            null,
+            $meta['ContentType'] ?? 'application/octet-stream',
+            ['type' => 'file']
+        );
+    }
+
+    public function fileSize(string $path): FileAttributes
+    {
+        $meta = $this->getClient()->headObject([
+            'Bucket' => $this->getBucket(),
+            'Key' => $path,
+        ]);
+
+        return new FileAttributes(
+            $path,
+            null,
+            $meta['ContentLength'] ?? 0,
+            null,
+            null,
+            ['type' => 'file']
+        );
+    }
+
+    public function lastModified(string $path): FileAttributes
+    {
+        $meta = $this->getClient()->headObject([
+            'Bucket' => $this->getBucket(),
+            'Key' => $path,
+        ]);
+
+        return new FileAttributes(
+            $path,
+            null,
+            0,
+            isset($meta['LastModified']) ? strtotime($meta['LastModified']) : null,
+            null,
+            ['type' => 'file']
+        );
+    }
+
+    public function read(string $path): string
     {
         try {
             if (Arr::get($this->config, 'read_from_cdn')) {
-                $response = $this->getHttpClient()
+                return $this->getHttpClient()
                     ->get($this->getTemporaryUrl($path, date('+5 min')))
                     ->getBody()
                     ->getContents();
             } else {
-                $response = $this->getClient()->getObject([
+                return (string) $this->getClient()->getObject([
                     'Bucket' => $this->getBucket(),
                     'Key' => $path,
                 ])['Body'];
             }
-
-            return ['contents' => (string) $response];
         } catch (Throwable $e) {
-            return null;
-        } catch (Exception $e) {
-            return null;
+            return '';
         }
+    }
+
+    public function readStream(string $path)
+    {
+        $temporaryUrl = $this->getTemporaryUrl($path, strtotime('+5 min'));
+        return $this->getHttpClient()
+            ->get($temporaryUrl, ['stream' => true])
+            ->getBody()
+            ->detach();
+    }
+
+    public function listContents(string $path = '', bool $deep = false): iterable
+    {
+        $response = $this->listObjects($path, $deep);
+        $list = [];
+
+        foreach ((array) $response['Contents'] as $content) {
+            $pathInfo = pathinfo($content['Key']);
+            $isDir = '/' === substr($content['Key'], -1);
+
+            $list[] = new FileAttributes(
+                $content['Key'],
+                null,
+                $isDir ? 0 : intval($content['Size']),
+                isset($content['LastModified']) ? strtotime($content['LastModified']) : null,
+                null,
+                ['type' => $isDir ? 'dir' : 'file']
+            );
+        }
+
+        return $list;
+    }
+
+    public function fileExists(string $path): bool
+    {
+        try {
+            $this->getClient()->headObject([
+                'Bucket' => $this->getBucket(),
+                'Key' => $path,
+            ]);
+            return true;
+        } catch (Throwable $e) {
+            return false;
+        }
+    }
+
+    public function directoryExists(string $path): bool
+    {
+        return $this->fileExists(rtrim($path, '/') . '/');
+    }
+
+    public function move(string $source, string $destination, Config $config): void
+    {
+        $this->copy($source, $destination, $config);
+        $this->delete($source);
     }
 
     public function getClient()
@@ -365,195 +334,40 @@ class CosAdapter extends AbstractAdapter implements CanOverwriteFiles
         return $this->client ?: $this->client = new Client($this->config);
     }
 
-    /**
-     * @param \Qcloud\Cos\Client $client
-     *
-     * @return $this
-     */
     public function setClient(Client $client)
     {
         $this->client = $client;
-
         return $this;
     }
 
-    /**
-     * @return \GuzzleHttp\Client
-     */
     public function getHttpClient()
     {
         return $this->httpClient ?: $this->httpClient = new HttpClient();
     }
 
-    /**
-     * @param \GuzzleHttp\Client $client
-     *
-     * @return $this
-     */
     public function setHttpClient(HttpClient $client)
     {
         $this->httpClient = $client;
-
         return $this;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return array|bool
-     */
-    public function readStream($path)
+    public function setPathPrefix(string $prefix): void
     {
-        try {
-            $temporaryUrl = $this->getTemporaryUrl($path, \strtotime('+5 min'));
-
-            $stream = $this->getHttpClient()
-                ->get($temporaryUrl, ['stream' => true])
-                ->getBody()
-                ->detach();
-
-            return ['stream' => $stream];
-        } catch (\Throwable $e) {
-            return false;
-        } catch (\Exception $e) {
-            return false;
-        }
+        $this->prefixer = new PathPrefixer($prefix);
     }
 
-    /**
-     * @param string $directory
-     * @param bool   $recursive
-     *
-     * @return array|bool
-     */
-    public function listContents($directory = '', $recursive = false)
-    {
-        $list = [];
-
-        $response = $this->listObjects($directory, $recursive);
-
-        foreach ((array) $response['Contents'] as $content) {
-            $list[] = $this->normalizeFileInfo($content);
-        }
-
-        return $list;
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return array|bool
-     */
-    public function getMetadata($path)
-    {
-        return $this->getClient()->headObject([
-            'Bucket' => $this->getBucket(),
-            'Key' => $path,
-        ]);
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return array|bool
-     */
-    public function getSize($path)
-    {
-        $meta = $this->getMetadata($path);
-
-        return isset($meta['ContentLength']) ? ['size' => $meta['ContentLength']] : false;
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return array|bool
-     */
-    public function getMimetype($path)
-    {
-        $meta = $this->getMetadata($path);
-
-        return isset($meta['ContentType']) ? ['mimetype' => $meta['ContentType']] : false;
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return array|bool
-     */
-    public function getTimestamp($path)
-    {
-        $meta = $this->getMetadata($path);
-
-        return isset($meta['LastModified']) ? ['timestamp' => strtotime($meta['LastModified'])] : false;
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return array|bool
-     */
-    public function getVisibility($path)
-    {
-        $meta = $this->getClient()->getObjectAcl([
-            'Bucket' => $this->getBucket(),
-            'Key' => $path,
-        ]);
-
-        foreach ($meta['Grants'] as $grant) {
-            if ('READ' === $grant['Grant']['Permission'] && false !== strpos($grant['Grantee']['URI'] ?? '', 'global/AllUsers')) {
-                return ['visibility' => AdapterInterface::VISIBILITY_PUBLIC];
-            }
-        }
-
-        return ['visibility' => AdapterInterface::VISIBILITY_PRIVATE];
-    }
-
-    /**
-     * @param array $content
-     *
-     * @return array
-     */
-    protected function normalizeFileInfo(array $content)
-    {
-        $path = pathinfo($content['Key']);
-
-        return [
-            'type' => '/' === substr($content['Key'], -1) ? 'dir' : 'file',
-            'path' => $content['Key'],
-            'size' => \intval($content['Size']),
-            'dirname' => \strval($path['dirname']),
-            'basename' => \strval($path['basename']),
-            'filename' => strval($path['filename']),
-            'timestamp' => \strtotime($content['LastModified']),
-            'extension' => $path['extension'] ?? '',
-        ];
-    }
-
-    /**
-     * @param string $directory
-     * @param bool   $recursive
-     *
-     * @return mixed
-     */
-    protected function listObjects($directory = '', $recursive = false)
+    protected function listObjects(string $directory = '', bool $recursive = false)
     {
         return $this->getClient()->listObjects([
             'Bucket' => $this->getBucket(),
-            'Prefix' => ('' === (string) $directory) ? '' : ($directory.'/'),
+            'Prefix' => ('' === (string) $directory) ? '' : ($directory . '/'),
             'Delimiter' => $recursive ? '' : '/',
         ]);
     }
 
-    /**
-     * @param Config $config
-     *
-     * @return array
-     */
     protected function getUploadOptions(Config $config)
     {
         $options = [];
-
         if ($config->has('header')) {
             $options += $config->get('header');
         }
@@ -563,23 +377,16 @@ class CosAdapter extends AbstractAdapter implements CanOverwriteFiles
         if ($config->has('visibility')) {
             $options['params']['ACL'] = $this->normalizeVisibility($config->get('visibility'));
         }
-
         return $options;
     }
 
-    /**
-     * @param $visibility
-     *
-     * @return string
-     */
     protected function normalizeVisibility($visibility)
     {
         switch ($visibility) {
-            case AdapterInterface::VISIBILITY_PUBLIC:
+            case 'public':
                 $visibility = 'public-read';
                 break;
         }
-
         return $visibility;
     }
 }

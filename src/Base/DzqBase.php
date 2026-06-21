@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-namespace mshk\Base;
+namespace Discuz\Base;
 
 use App\Common\ResponseCode;
-use mshk\Common\Utils;
-use mshk\Http\mshkResponseFactory;
+use Discuz\Common\Utils;
+use Discuz\Http\DiscuzResponseFactory;
 use Illuminate\Support\Str;
 
 class DzqBase

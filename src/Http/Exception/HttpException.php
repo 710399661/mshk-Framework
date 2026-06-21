@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Http\Exception;
+namespace Discuz\Http\Exception;
 
 class HttpException extends \RuntimeException
 {
@@ -24,7 +24,7 @@ class HttpException extends \RuntimeException
 
     private $headers;
 
-    public function __construct($statusCode, $message = '', ?\Exception $previous = null, array $headers = [], $code = 0)
+    public function __construct($statusCode, $message = '', \Exception $previous = null, array $headers = [], $code = 0)
     {
         $this->statusCode = $statusCode;
         $this->headers = $headers;

@@ -16,31 +16,31 @@
  * limitations under the License.
  */
 
-namespace mshk\Api;
+namespace Discuz\Api;
 
-use mshk\Api\Controller\AbstractSerializeController;
-use mshk\Api\Events\ApiExceptionRegisterHandler;
-use mshk\Api\Events\ConfigMiddleware;
-use mshk\Api\ExceptionHandler\FallbackExceptionHandler;
-use mshk\Api\ExceptionHandler\LoginFailedExceptionHandler;
-use mshk\Api\ExceptionHandler\LoginFailuresTimesToplimitExceptionHandler;
-use mshk\Api\ExceptionHandler\NotAuthenticatedExceptionHandler;
-use mshk\Api\ExceptionHandler\PermissionDeniedExceptionHandler;
-use mshk\Api\ExceptionHandler\RouteNotFoundExceptionHandler;
-use mshk\Api\ExceptionHandler\ServiceResponseExceptionHandler;
-use mshk\Api\ExceptionHandler\TencentCloudSDKExceptionHandler;
-use mshk\Api\ExceptionHandler\ValidationExceptionHandler;
-use mshk\Api\Listeners\AutoResisterApiExceptionRegisterHandler;
-use mshk\Api\Middleware\HandlerErrors;
-use mshk\Api\Middleware\InstallMiddleware;
-use mshk\Foundation\Application;
-use mshk\Http\Middleware\AuthenticateWithHeader;
-use mshk\Http\Middleware\CheckoutSite;
-use mshk\Http\Middleware\CheckUserStatus;
-use mshk\Http\Middleware\DispatchRoute;
-use mshk\Http\Middleware\ParseJsonBody;
-use mshk\Http\Middleware\OptionsRequest;
-use mshk\Http\RouteCollection;
+use Discuz\Api\Controller\AbstractSerializeController;
+use Discuz\Api\Events\ApiExceptionRegisterHandler;
+use Discuz\Api\Events\ConfigMiddleware;
+use Discuz\Api\ExceptionHandler\FallbackExceptionHandler;
+use Discuz\Api\ExceptionHandler\LoginFailedExceptionHandler;
+use Discuz\Api\ExceptionHandler\LoginFailuresTimesToplimitExceptionHandler;
+use Discuz\Api\ExceptionHandler\NotAuthenticatedExceptionHandler;
+use Discuz\Api\ExceptionHandler\PermissionDeniedExceptionHandler;
+use Discuz\Api\ExceptionHandler\RouteNotFoundExceptionHandler;
+use Discuz\Api\ExceptionHandler\ServiceResponseExceptionHandler;
+use Discuz\Api\ExceptionHandler\TencentCloudSDKExceptionHandler;
+use Discuz\Api\ExceptionHandler\ValidationExceptionHandler;
+use Discuz\Api\Listeners\AutoResisterApiExceptionRegisterHandler;
+use Discuz\Api\Middleware\HandlerErrors;
+use Discuz\Api\Middleware\InstallMiddleware;
+use Discuz\Foundation\Application;
+use Discuz\Http\Middleware\AuthenticateWithHeader;
+use Discuz\Http\Middleware\CheckoutSite;
+use Discuz\Http\Middleware\CheckUserStatus;
+use Discuz\Http\Middleware\DispatchRoute;
+use Discuz\Http\Middleware\ParseJsonBody;
+use Discuz\Http\Middleware\OptionsRequest;
+use Discuz\Http\RouteCollection;
 use Illuminate\Support\ServiceProvider;
 use Tobscure\JsonApi\ErrorHandler;
 use Laminas\Stratigility\MiddlewarePipe;
@@ -49,7 +49,7 @@ class ApiServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton('mshk.api.middleware', function (Application $app) {
+        $this->app->singleton('discuz.api.middleware', function (Application $app) {
             $pipe = new MiddlewarePipe();
 
             if (!$this->app->isInstall()) {
@@ -87,7 +87,7 @@ class ApiServiceProvider extends ServiceProvider
         });
 
         // 保证路由中间件最后执行
-        $this->app->afterResolving('mshk.api.middleware', function (MiddlewarePipe $pipe) {
+        $this->app->afterResolving('discuz.api.middleware', function (MiddlewarePipe $pipe) {
             $pipe->pipe($this->app->make(DispatchRoute::class));
         });
     }

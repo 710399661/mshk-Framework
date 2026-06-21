@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Http\Exception;
+namespace Discuz\Http\Exception;
 
 use Exception;
 

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Contracts\Socialite;
+namespace Discuz\Contracts\Socialite;
 
 interface User
 {

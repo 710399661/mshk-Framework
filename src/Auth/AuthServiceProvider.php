@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-namespace mshk\Auth;
+namespace Discuz\Auth;
 
 use App\Models\User;
-use mshk\Api\Events\GetPermission;
+use Discuz\Api\Events\GetPermission;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Carbon\Laravel\ServiceProvider;
 use RuntimeException;

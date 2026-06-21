@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\ExceptionHandler;
+namespace Discuz\Api\ExceptionHandler;
 
 use Exception;
 use Tobscure\JsonApi\Exception\Handler\ExceptionHandlerInterface;

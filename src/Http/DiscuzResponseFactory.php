@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Http;
+namespace Discuz\Http;
 
 use Illuminate\Http\File;
 use Illuminate\Support\Arr;
@@ -26,7 +26,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 
-class mshkResponseFactory
+class DiscuzResponseFactory
 {
     public static function JsonApiResponse(Document $document, int $code = 200, array $headers = []): ResponseInterface
     {

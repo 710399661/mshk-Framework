@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace mshk\Qcloud\Services;
+namespace Discuz\Qcloud\Services;
 
 use TencentCloud\Vod\V20180717\Models\DeleteMediaRequest;
 use TencentCloud\Vod\V20180717\Models\DescribeMediaInfosRequest;
@@ -62,7 +62,7 @@ class VodService extends AbstractService
      *@param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function deleteMedia($fileId, ?int $qcloudVodSubAppId = null)
+    public function deleteMedia($fileId, int $qcloudVodSubAppId = null)
     {
         $clientRequest = new DeleteMediaRequest();
 
@@ -82,7 +82,7 @@ class VodService extends AbstractService
      *@param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function transcodeVideo($fileId, $taskType, ?int $qcloudVodSubAppId = null)
+    public function transcodeVideo($fileId, $taskType, int $qcloudVodSubAppId = null)
     {
         $clientRequest = new ProcessMediaRequest();
 
@@ -121,7 +121,7 @@ class VodService extends AbstractService
      *@param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function modifyMedia($fileId, $ExpireTime = '9999-12-31T23:59:59Z', ?int $qcloudVodSubAppId = null)
+    public function modifyMedia($fileId, $ExpireTime = '9999-12-31T23:59:59Z', int $qcloudVodSubAppId = null)
     {
         $clientRequest = new ModifyMediaInfoRequest();
 
@@ -160,7 +160,7 @@ class VodService extends AbstractService
      *@param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function describeTaskDetail($task_id, ?int $qcloudVodSubAppId = null)
+    public function describeTaskDetail($task_id, int $qcloudVodSubAppId = null)
     {
         $clientRequest = new DescribeTaskDetailRequest();
 
@@ -180,7 +180,7 @@ class VodService extends AbstractService
      *@param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function describeSnapshotByTimeOffsetTemplates($template_id, ?int $qcloudVodSubAppId = null)
+    public function describeSnapshotByTimeOffsetTemplates($template_id, int $qcloudVodSubAppId = null)
     {
         $clientRequest = new DescribeSnapshotByTimeOffsetTemplatesRequest();
 
@@ -200,7 +200,7 @@ class VodService extends AbstractService
      * @param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function describeTranscodeTemplates($template_id, ?int $qcloudVodSubAppId = null)
+    public function describeTranscodeTemplates($template_id, int $qcloudVodSubAppId = null)
     {
         $clientRequest = new DescribeTranscodeTemplatesRequest();
 
@@ -222,7 +222,7 @@ class VodService extends AbstractService
      *@param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function processMediaByProcedure($fileId, $template_name, ?int $qcloudVodSubAppId = null)
+    public function processMediaByProcedure($fileId, $template_name, int $qcloudVodSubAppId = null)
     {
         $clientRequest = new ProcessMediaByProcedureRequest();
 
@@ -242,7 +242,7 @@ class VodService extends AbstractService
      *@param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function describeMediaInfos($fileIds, $filters, ?int $qcloudVodSubAppId = null)
+    public function describeMediaInfos($fileIds, $filters, int $qcloudVodSubAppId = null)
     {
         $clientRequest = new DescribeMediaInfosRequest();
 
@@ -263,7 +263,7 @@ class VodService extends AbstractService
      *@param int|null $qcloudVodSubAppId
      * @return mixed
      */
-    public function describeProcedureTemplates($name, ?int $qcloudVodSubAppId = null)
+    public function describeProcedureTemplates($name, int $qcloudVodSubAppId = null)
     {
         $clientRequest = new DescribeProcedureTemplatesRequest();
 

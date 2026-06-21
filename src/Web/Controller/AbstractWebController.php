@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-namespace mshk\Web\Controller;
+namespace Discuz\Web\Controller;
 
-use mshk\Foundation\Application;
-use mshk\Http\mshkResponseFactory;
+use Discuz\Foundation\Application;
+use Discuz\Http\DiscuzResponseFactory;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\View\Factory;
 use Psr\Http\Message\ResponseInterface;
@@ -49,7 +49,7 @@ abstract class AbstractWebController implements RequestHandlerInterface
         if ($view instanceof Renderable) {
             $view = $view->render();
         }
-        return mshkResponseFactory::HtmlResponse($view);
+        return DiscuzResponseFactory::HtmlResponse($view);
     }
 
     abstract public function render(ServerRequestInterface $request, Factory $view);

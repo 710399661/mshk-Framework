@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Serializer;
+namespace Discuz\Api\Serializer;
 
 use App\Models\User;
 use Closure;
 use DateTime;
-use mshk\Api\Events\Serializing;
+use Discuz\Api\Events\Serializing;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Tobscure\JsonApi\AbstractSerializer as BaseAbstractSerializer;
@@ -30,7 +30,6 @@ use Tobscure\JsonApi\Relationship;
 use Tobscure\JsonApi\Resource;
 use Tobscure\JsonApi\SerializerInterface;
 
-#[\AllowDynamicProperties]
 abstract class AbstractSerializer extends BaseAbstractSerializer
 {
     /**
@@ -71,7 +70,7 @@ abstract class AbstractSerializer extends BaseAbstractSerializer
     /**
      * {@inheritdoc}
      */
-    public function getAttributes($model, ?array $fields = null)
+    public function getAttributes($model, array $fields = null)
     {
         if (! is_object($model) && ! is_array($model)) {
             return [];
@@ -98,7 +97,7 @@ abstract class AbstractSerializer extends BaseAbstractSerializer
      * @param DateTime|null $date
      * @return string|null
      */
-    protected function formatDate(?DateTime $date = null)
+    protected function formatDate(DateTime $date = null)
     {
         if ($date) {
             return $date->format(DateTime::RFC3339);

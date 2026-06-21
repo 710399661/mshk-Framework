@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\Middleware;
+namespace Discuz\Api\Middleware;
 
 use App\Common\ResponseCode;
-use mshk\Common\Utils;
+use Discuz\Common\Utils;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -42,7 +42,7 @@ class InstallMiddleware implements MiddlewareInterface
     {
         Utils::outPut(ResponseCode::NOT_INSTALL);
         /*$status = 500;
-        return mshkResponseFactory::JsonResponse([
+        return DiscuzResponseFactory::JsonResponse([
             'errors' => [
                 [
                     'status' => $status,

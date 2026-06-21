@@ -16,16 +16,16 @@
  * limitations under the License.
  */
 
-namespace mshk\Api\ExceptionHandler;
+namespace Discuz\Api\ExceptionHandler;
 
 use App\Common\ResponseCode;
-use mshk\Auth\Exception\LoginFailedException;
+use Discuz\Auth\Exception\LoginFailedException;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Tobscure\JsonApi\Exception\Handler\ExceptionHandlerInterface;
 use Tobscure\JsonApi\Exception\Handler\ResponseBag;
-use mshk\Common\Utils;
+use Discuz\Common\Utils;
 class LoginFailedExceptionHandler implements ExceptionHandlerInterface
 {
     /**

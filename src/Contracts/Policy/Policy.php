@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-namespace mshk\Contracts\Policy;
+namespace Discuz\Contracts\Policy;
 
-use mshk\Api\Events\GetPermission;
-use mshk\Api\Events\ScopeModelVisibility;
+use Discuz\Api\Events\GetPermission;
+use Discuz\Api\Events\ScopeModelVisibility;
 use Illuminate\Contracts\Events\Dispatcher;
 
 interface Policy

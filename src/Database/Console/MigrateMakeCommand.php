@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-namespace mshk\Database\Console;
+namespace Discuz\Database\Console;
 
-use mshk\Database\MigrationCreator;
+use Discuz\Database\MigrationCreator;
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand as IlluminateMigrateMakeCommand;
 use Illuminate\Support\Composer;
 
