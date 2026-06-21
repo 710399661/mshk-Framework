@@ -60,11 +60,16 @@
             "Discuz\\": "src/"
         }
     },
-    "config": {
+     "config": {
         "sort-packages": true,
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "process-timeout": 300
+        "process-timeout": 300,
+        "policy": {
+            "advisories": {
+                "block": false
+            }
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true
