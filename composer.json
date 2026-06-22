@@ -1,6 +1,5 @@
 {
     "name": "mshk/core",
-    "version": "1.0.0",
     "description": "A lightweight framework built on Laravel Illuminate components for Discuz Q",
     "type": "library",
     "license": "Apache-2.0",
