@@ -48,7 +48,7 @@
         "nikic/fast-route": "^1.3.0",
         "tobscure/json-api": "^0.4.1",
         "dflydev/fig-cookies": "^3.0",
-        "guzzlehttp/guzzle": "^7.0",
+        "guzzlehttp/guzzle": "^7.12.0",
         "guzzlehttp/guzzle-services": "^1.1",
         "qcloud/cos-sdk-v5": "^2.0",
         "tencentcloud/tencentcloud-sdk-php": "^3.0",
@@ -73,7 +73,7 @@
         "sort-packages": true,
         "policy": {
             "advisories": {
-                "block": false
+                "ignore-id": ["PKSA-zwc5-qtrz-zm1n"]
             }
         }
     }
