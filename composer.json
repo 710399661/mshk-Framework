@@ -1,15 +1,24 @@
 {
     "name": "mshk/core",
-    "description": "Discuz! Q Framework - 基于 Laravel Illuminate 组件的论坛系统框架",
+    "version": "1.0.0",
+    "description": "A lightweight framework built on Laravel Illuminate components for Discuz Q",
     "type": "library",
-    "keywords": ["discuz", "forum", "framework", "laravel", "illuminate"],
-    "license": "proprietary",
+    "license": "Apache-2.0",
     "authors": [
         {
-            "name": "Discuz! Q Team",
-            "email": "dev@discuz.com"
+            "name": "MSHK",
+            "email": "your-email@example.com"
         }
     ],
+    "keywords": [
+        "framework",
+        "laravel",
+        "illuminate",
+        "discuz",
+        "forum",
+        "community"
+    ],
+    "homepage": "https://github.com/mshk/core",
     "require": {
         "php": "^8.2",
         "ext-json": "*",
@@ -60,17 +69,12 @@
             "Discuz\\": "src/"
         }
     },
-     "config": {
+    "config": {
         "sort-packages": true,
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "process-timeout": 300,
         "policy": {
             "advisories": {
                 "block": false
             }
         }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    }
 }

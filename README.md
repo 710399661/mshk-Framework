@@ -1,35 +1,56 @@
-# Discuz! Q Framework
+# MSHK Core
 
-基于 Laravel Illuminate 组件的论坛系统框架。
+A lightweight framework built on Laravel Illuminate components for Discuz Q.
 
-## 安装
+## Features
+
+- Built on Laravel 11 Illuminate components
+- PSR-7/PSR-15 HTTP middleware support
+- FastRoute for high-performance routing
+- JSON API response formatting
+- Built-in authentication and authorization
+- Event-driven architecture
+
+## Requirements
+
+- PHP 8.2+
+- Composer
+
+## Installation
 
 ```bash
 composer require mshk/core
 ```
 
-## 系统要求
+## Quick Start
 
-- PHP >= 8.2
-- ext-json
-- ext-mbstring
-- ext-openssl
+```php
+use Discuz\Foundation\Application;
+use Discuz\Http\Server;
 
-## 主要组件
+// Create application instance
+$app = new Application(__DIR__);
 
-- 用户认证与授权
-- 帖子与评论系统
-- 支付系统 (微信支付)
-- 文件存储 (本地/COS)
-- 缓存系统 (文件/Redis)
-- 队列系统 (Redis)
-- 短信服务
-- 微信集成
+// Register HTTP server
+$app->singleton(Server::class, Server::class);
 
-## 文档
+// Start the server
+$app->make(Server::class)->listen();
+```
 
-详见 `src/` 目录下的源码注释。
+## Documentation
 
-## 许可证
+- [Laravel Upgrade Guide](../docs/laravel-upgrade-summary.md)
+- [Package Compatibility](../docs/package-compatibility-analysis.md)
 
-proprietary
+## License
+
+Apache License 2.0 - See [LICENSE](LICENSE) for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Author
+
+**MSHK** - your-email@example.com
