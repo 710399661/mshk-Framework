@@ -1,5 +1,6 @@
 {
     "name": "mshk/core",
+    "version": "1.0.8",
     "description": "A lightweight framework built on Laravel Illuminate components for Discuz Q",
     "type": "library",
     "license": "Apache-2.0",
@@ -17,6 +18,17 @@
         "forum",
         "community"
     ],
+  
+    "config": {
+        "sort-packages": true,
+        "policy": {
+            "advisories": {
+                "ignore": [
+                    "PKSA-zwc5-qtrz-zm1n"
+                ]
+            }
+        }
+    },
     "require": {
         "php": "^8.2",
         "ext-json": "*",
@@ -51,28 +63,6 @@
         "qcloud/cos-sdk-v5": "^2.0",
         "tencentcloud/tencentcloud-sdk-php": "^3.0",
         "league/flysystem": "^3.0",
-        "symfony/console": "^7.0",
-        "league/oauth2-server": "^8.3",
-        "lcobucci/jwt": "^5.0",
-        "overtrue/easy-sms": "^1.1",
-        "dragonmantank/cron-expression": "^2.3",
-        "ramsey/uuid": "^4.7",
-        "phpoffice/phpspreadsheet": "^1.29"
-    },
-    "autoload": {
-        "files": [
-            "src/Foundation/helpers.php"
-        ],
-        "psr-4": {
-            "Discuz\\": "src/"
-        }
-    },
-    "config": {
-        "sort-packages": true,
-        "policy": {
-            "advisories": {
-                "block": false
-            }
-        }
+        "symfony/console": "^7.0"
     }
 }
