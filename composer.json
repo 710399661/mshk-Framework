@@ -17,7 +17,6 @@
         "forum",
         "community"
     ],
-    "homepage": "https://github.com/mshk/core",
     "require": {
         "php": "^8.2",
         "ext-json": "*",
